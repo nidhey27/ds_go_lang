@@ -13,6 +13,14 @@ type LinkedList struct {
 }
 
 func (l *LinkedList) insertAtEnd(n *Node) {
+	if l.getLength() == 0 {
+		l.insertAtBegining(n)
+		return
+	}
+	itr := l.getLastNode()
+	itr.next = n
+	n.prev = itr
+	n.next = nil
 
 }
 
@@ -81,6 +89,9 @@ func main() {
 	doublyLinkedList.insertAtBegining(&Node{data: 21})
 	doublyLinkedList.insertAtBegining(&Node{data: 24})
 	doublyLinkedList.insertAtBegining(&Node{data: 26})
+
+	doublyLinkedList.insertAtEnd(&Node{data: -1})
+	doublyLinkedList.insertAtEnd(&Node{data: -2})
 
 	fmt.Println("Forward")
 	doublyLinkedList.printForwardList()
