@@ -24,6 +24,47 @@ func (l *LinkedList) insertAtEnd(n *Node) {
 
 }
 
+func (l *LinkedList) deleteNodeWithValue(value int) {
+	if l.getLength() == 0 {
+		fmt.Printf("Linked List is Empty\n")
+		return
+	}
+	if l.head.data == value {
+		l.head = l.head.next
+		return
+	}
+	itr := l.head
+	for itr.next.data != value {
+		if itr.next.next == nil {
+			fmt.Printf("%v Not Present in LL", value)
+			return
+		}
+		itr = itr.next
+	}
+
+	// fmt.Println(itr)
+	// itr.next = itr.next.next
+	// fmt.Println(itr.next.next)
+	if itr.next != nil {
+		itr.next.prev = itr.prev
+	}
+	if itr.prev != nil {
+		itr.prev.next = itr.next
+	}
+	// fmt.Println(itr)
+	// fmt.Println(itr.next.next)
+	// // itr.next.next = itr.prev
+	// // itr.next.next = itr
+	// // itr.next.next = itr
+	// itr.next = itr.next.next
+
+	// itr.prev = itr.next.prev
+	// itr.next = itr.next.next
+
+	// itr.prev = itr.prev.next
+	// itr.next.next.prev = itr
+}
+
 func (l *LinkedList) insertAtBegining(n *Node) {
 	if l.head == nil {
 		node := l.head
@@ -44,7 +85,7 @@ func (l LinkedList) printForwardList() {
 	}
 	itr := l.head
 	for itr != nil {
-		fmt.Printf("%v ", itr.data)
+		fmt.Printf("%v ", itr)
 		itr = itr.next
 	}
 }
@@ -65,7 +106,7 @@ func (l *LinkedList) printBackwardList() {
 
 	itr := l.getLastNode()
 	for itr != nil {
-		fmt.Printf("%v ", itr.data)
+		fmt.Printf("%v ", itr)
 		itr = itr.prev
 	}
 }
@@ -92,6 +133,9 @@ func main() {
 
 	doublyLinkedList.insertAtEnd(&Node{data: -1})
 	doublyLinkedList.insertAtEnd(&Node{data: -2})
+
+	doublyLinkedList.deleteNodeWithValue(-2)
+	doublyLinkedList.deleteNodeWithValue(24)
 
 	fmt.Println("Forward")
 	doublyLinkedList.printForwardList()
